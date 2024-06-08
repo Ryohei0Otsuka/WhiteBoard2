@@ -28,6 +28,9 @@ $(document).ready(function () {
         $('.modal-close, .back').click(function () {
             $('#overlay, .modal-window').fadeOut();
             $('.modal-window input[type="radio"]').prop('checked', false);
+            $('.comment').val(''); 
+            $('#time-input').val('-- : --');
+            $('.error-message01, .error-message02, .error-message03').css('visibility', 'hidden');
         });
     });
 
@@ -47,14 +50,28 @@ $(document).ready(function () {
 
 //--バリデーション--//
 
-    $(function() {
-        $('.btn').click(function() {
+    $(function () {
+        $('.btn').click(function () {
             $('.update').prop("disabled", true).css('background-color', 'red');
-            $('.blood').change(function() {
+            $('.blood').change(function () {
                 if ($(this).is(':checked')) {
-                    $('.update').prop('disabled', false).css('background-color', '#2196f3');;
+                    let status = $(this).val();
+                    console.log(status);
+                    if (status != '外出') {
+                        $('.update').prop('disabled', false).css('background-color', '#2196f3');
+                        $('.error-message01, .error-message02, .error-message03').css('visibility', 'hidden');
+                    } else {
+                        $('.update').prop('disabled', true).css('background-color', 'red');
+                        $('.error-message01, .error-message02, .error-message03').css('visibility', 'visible');
+                        if ($('.comment').length > 30) {
+                            $('.error-message01').css('visibility', 'visible');
+                        } else {
+                            $('.error-message01').css('visibility', 'hidden');
+                        }
+                        $('.error-message01, .error-message02, .error-message03').css('visibility', 'visible');
+                    }
                 }
-            });    
+            });
         });
     });
 
