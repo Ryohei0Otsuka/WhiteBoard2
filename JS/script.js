@@ -14,17 +14,20 @@ $(document).ready(function () {
 
     $(function () {
         $('.btn').click(function () {
+            let person = $(this).closest('.person');
+            let personId = person.data('person-id');
+            let name =person.find('.name').text(); 
 
-            let personId = $(this).closest('.person').data('person-id');
             $('.modal-window').find('.id').val(personId);
+            $('.modal-window').find('.modal-name').text(name);
             $('#overlay, .modal-window').fadeIn();
 
             console.log(personId);
+            console.log(name);
         });
-        
-
         $('.modal-close, .back').click(function () {
             $('#overlay, .modal-window').fadeOut();
+            $('.modal-window input[type="radio"]').prop('checked', false);
         });
     });
 
@@ -42,16 +45,17 @@ $(document).ready(function () {
         });
     });
 
-    $(function () {
-        $('.name').each(function() {
-            let name = $(this).text();
-            console.log(name);
-            $('.modal-name').each(function () {
-                $(this).text(name);
-            })
-        })
-    });
+//--バリデーション--//
 
-    
+    $(function() {
+        $('.btn').click(function() {
+            $('.update').prop("disabled", true).css('background-color', 'red');
+            $('.blood').change(function() {
+                if ($(this).is(':checked')) {
+                    $('.update').prop('disabled', false).css('background-color', '#2196f3');;
+                }
+            });    
+        });
+    });
 
 });
