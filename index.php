@@ -133,7 +133,7 @@ if ($status == false) {
                         <div class="time-set01">
                             <p class="modal-start-time">開始時刻</p>
                             <div class="time-size time-size01">
-                                <select id="time-input" name="time01">
+                                <select id="time-input" name="time01" class='time01'>
                                     <option value="-- : --">-- : --</option>
                                     <option value="00:00">00:00</option>
                                     <option value="00:30">00:30</option>
@@ -191,7 +191,7 @@ if ($status == false) {
                         <div class="time-set02">
                             <p class="modal-end-time">終了時刻</p>
                             <div class="time-size">
-                                <select id="time-input" name="time02">
+                                <select id="time-input" name="time02" class='time02'>
                                     <option value="-- : --">-- : --</option>
                                     <option value="00:00">00:00</option>
                                     <option value="00:30">00:30</option>
