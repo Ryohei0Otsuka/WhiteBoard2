@@ -16,7 +16,7 @@ $(document).ready(function () {
         $('.btn').click(function () {
             let person = $(this).closest('.person');
             let personId = person.data('person-id');
-            let name =person.find('.name').text(); 
+            let name = person.find('.name').text();
 
             $('.modal-window').find('.id').val(personId);
             $('.modal-window').find('.modal-name').text(name);
@@ -28,14 +28,15 @@ $(document).ready(function () {
         $('.modal-close, .back').click(function () {
             $('#overlay, .modal-window').fadeOut();
             $('.modal-window input[type="radio"]').prop('checked', false);
-            $('.comment').val(''); 
+            $('.comment').val('');
             $('.time01, .time02').val('-- : --');
             $('.error-message01, .error-message02, .error-message03').css('visibility', 'hidden');
+            $('.comment, .time01, .time02').prop('disabled', true).css('border-color', '#c2bcbc');
         });
     });
 
     $(function () {
-        $('.status').each(function() {
+        $('.status').each(function () {
             let status = $(this).text();
             if (status === "外出") {
                 $(this).css('background-color', '#f44336');
@@ -47,46 +48,59 @@ $(document).ready(function () {
         });
     });
 
-//--バリデーション--//
+    //--バリデーション--//
 
-$(function () {
-    $('.btn').click(function () {
-        $('.update').prop("disabled", true).css('background-color', 'red');
-    });
+    $(function () {
+        $('.btn').click(function () {
+            $('.update').prop("disabled", true).css('background-color', 'red');
+        });
 
-    $('.blood').change(function () {
-        if ($(this).is(':checked')) {
-            let status = $(this).val();
-            console.log(status);
+        $('.blood').change(function () {
+            if ($(this).is(':checked')) {
+                let status = $(this).val();
+                console.log(status);
 
-            if (status != '外出') {
-                $('.update').prop('disabled', false).css('background-color', '#2196f3');
-                $('.error-message01, .error-message02, .error-message03').css('visibility', 'hidden');
-            } else {
-                $('.update').prop('disabled', true).css('background-color', '#red');
-                $('.error-message01').css('visibility', 'visible');
-            }
-
-            $('.comment, .time02').on('input', function () {
-                let commentLength = $('.comment').val().length;
-                let time01 = $('.time01').val().replace(':', '');
-                let time02 = $('.time02').val().replace(':', '');
-
-                if (commentLength > 30 || time01 >= time02) {
-                    $('.error-message01').css('visibility', commentLength > 30 ? 'visible' : 'hidden');
-                    $('.error-message02').css('visibility', time01 >= time02 ? 'visible' : 'hidden');
-                    $('.error-message03').css('visibility', time01 >= time02 ? 'visible' : 'hidden');
-                    $('.update').prop('disabled', true).css('background-color', 'red');
-                } else {
+                if (status != '外出') {
                     $('.update').prop('disabled', false).css('background-color', '#2196f3');
+                    $('.comment, .time01, .time02').prop('disabled', true).css('border-color', '#c2bcbc');
                     $('.error-message01, .error-message02, .error-message03').css('visibility', 'hidden');
+                    $('.comment').val('');
+                    $('.time01').val('-- : --');
+                    $('.time02').val('-- : --');
+                } else {
+                    $('.comment, .time01, .time02').prop('disabled', false);
+                    $('.update').prop('disabled', true).css('background-color', 'red');
                 }
-                console.log(time01);
-                console.log(time02);
-            });
-        }
-    });
-});
 
+                    $('.comment').on('input', function () {
+                        let commentLength = $('.comment').val().length;
+                        console.log(commentLength);
+                        if (commentLength >= 30 || commentLength == 0) {
+                            $('.update').prop('disabled', true).css('background-color', 'red');
+                            $('.error-message01').css('visibility', 'visible');
+                            $('.comment').css('border-color', '#b00020');
+                        } else {
+                            $('.error-message01').css('visibility', 'hidden');
+                            $('.comment').css('border-color', '#c2bcbc');
+                        }
+                    });
+
+                    $('.time01, .time02').on('input', function () {
+                        let time01 = $('.time01').val().replace(':', '');
+                        let time02 = $('.time02').val().replace(':', '');
+                        console.log(time02);
+                        if (time02 == '--  --' || time01 >= time02 || time01 == '-- --') {
+                            $('.update').prop('disabled', true).css('background-color', 'red');
+                            $('.error-message02').css('visibility', 'visible');
+                            $('.time02').css('border-color', '#b00020');
+                        } else {
+                            $('.update').prop('disabled', false).css('background-color', '#2196f3');
+                            $('.error-message02, .error-message03').css('visibility', 'hidden');
+                            $('.time01, .time02').css('border-color', '#c2bcbc');
+                        }
+                    });
+            }
+        });
+    });
 
 });
