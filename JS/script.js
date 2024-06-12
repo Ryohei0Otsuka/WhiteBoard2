@@ -138,15 +138,19 @@ $(document).ready(function () {
             let commentValid = !(commentLength > 30 || commentLength == 0);
             let status = $('.blood:checked').val();
 
+    
+
             let time01 = $('.time01').val().replace('：', '');
             let time02 = $('.time02').val().replace('：', '');
             let timeValid = !(time01 >= time02);
             let sValid = (status === '外出');
             console.log(sValid);
-
+            
             if (commentValid && timeValid && sValid) {
                 $('.update').prop('disabled', false).css('background-color', '#2196f3');
-            } else {
+            } else if(!(sValid)){
+                $('.update').prop('disabled', false).css('background-color', '#2196f3');
+            }else{
                 $('.update').prop('disabled', true).css('background-color', 'red');
             }
         }
