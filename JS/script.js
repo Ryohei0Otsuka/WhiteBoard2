@@ -31,7 +31,7 @@ $(document).ready(function () {
             $('.comment').val('');
             $('.time01, .time02').val('--：--');
             $('.error-message01, .error-message02, .error-message03').css('visibility', 'hidden');
-            $('.comment, .time01, .time02').css('border-color', '#c2bcbc');
+            $('.comment, .time01, .time02').prop('disabled', false).css('border-color', '#c2bcbc');
         });
     });
 
